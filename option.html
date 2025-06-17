@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vertical Centered Buttons</title>
+  <style>
+    body {
+            background: linear-gradient(135deg, #05643c 0%, #000428 100%);
+      margin: 0;
+    }
+    .buttons {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #friend, #robot {
+      width: 170px;
+      height: 80px;
+      background-color: #004e92;
+      color: white;
+      font-weight: 600;
+      font-size: 25px;
+      border-radius: 10px;
+      transition: all 1s ease;
+      margin: 30px;
+    }
+    #friend:hover, #robot:hover {
+      background-color: #168bbd;
+      color: black;
+      width: 200px;
+      height: 100px;
+      font-size: 28px;
+      border-radius: 15px;
+      border: 6px solid #38e480;
+    }
+  </style>
+</head>
+<body>
+  <div class="buttons">
+    <button id="friend">Play with Friend</button>
+    <button id="robot">Play with AI Robot</button>
+  </div>
+</body>
+</html>

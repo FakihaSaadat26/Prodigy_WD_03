@@ -1,81 +1,12 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="style.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tic-Tac-Toe Game</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #000428, #004e92);
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      color: white;
-    }
-    #scoreboard {
-      font-size: 24px;
-      margin-bottom: 20px;
-      background-color: #004e92;
-      padding: 10px 30px;
-      border-radius: 15px;
-      border: 2px solid #38e480;
-      font-weight: bold;
-      box-shadow: 0 0 10px #38e480;
-    }
-    #message {
-      font-size: 30px;
-      margin: 20px 0;
-      color: #38e480;
-      font-weight: bold;
-      text-shadow: 1px 1px 2px #000;
-    }
-    #board {
-      display: grid;
-      grid-template-columns: repeat(3, 100px);
-      grid-gap: 5px;
-      margin-bottom: 20px;
-    }
-    .cell {
-      width: 100px;
-      height: 100px;
-      background-color: #ffffff20;
-      font-size: 36px;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      border: 2px solid #38e480;
-      transition: background-color 0.3s;
-    }
-    .cell:hover {
-      background-color: #38e48033;
-    }
-    .buttons {
-      display: flex;
-      gap: 20px;
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 18px;
-      border-radius: 10px;
-      border: none;
-      cursor: pointer;
-      background-color: #004e92;
-      color: white;
-    }
-    button:hover {
-      background-color: #168bbd;
-      color: black;
-    }
-  </style>
 </head>
+
 <body>
   <div id="scoreboard"></div>
   <div id="message"></div>
@@ -85,90 +16,6 @@
     <button onclick="playAgain()">Play Again</button>
   </div>
 
-  <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const mode = urlParams.get('mode');
-    const player1 = urlParams.get('player1') || "Player 1";
-    const player2 = mode === 'ai' ? "AI" : urlParams.get('player2') || "Player 2";
-
-    let board = ["", "", "", "", "", "", "", "", ""];
-    let currentPlayer = "X";
-    let gameOver = false;
-    let scores = { X: 0, O: 0 };
-    let boardElement = document.getElementById("board");
-    let messageElement = document.getElementById("message");
-    let scoreboardElement = document.getElementById("scoreboard");
-
-    function drawBoard() {
-      boardElement.innerHTML = "";
-      board.forEach((cell, index) => {
-        let div = document.createElement("div");
-        div.className = "cell";
-        div.textContent = cell;
-        div.onclick = () => makeMove(index);
-        boardElement.appendChild(div);
-      });
-      updateScoreboard();
-    }
-
-    function makeMove(index) {
-      if (board[index] !== "" || gameOver) return;
-      board[index] = currentPlayer;
-      drawBoard();
-      if (checkWinner()) {
-        messageElement.textContent = `${getPlayerName(currentPlayer)} Wins!`;
-        scores[currentPlayer]++;
-        gameOver = true;
-      } else if (board.every(cell => cell !== "")) {
-        messageElement.textContent = "It's a Draw!";
-        gameOver = true;
-      } else {
-        currentPlayer = currentPlayer === "X" ? "O" : "X";
-        if (mode === 'ai' && currentPlayer === "O") {
-          aiMove();
-        }
-      }
-      updateScoreboard();
-    }
-
-    function aiMove() {
-      setTimeout(() => {
-        let emptyIndexes = board.map((v, i) => v === "" ? i : -1).filter(i => i !== -1);
-        let randomIndex = emptyIndexes[Math.floor(Math.random() * emptyIndexes.length)];
-        makeMove(randomIndex);
-      }, 500);
-    }
-
-    function checkWinner() {
-      const winPatterns = [
-        [0,1,2],[3,4,5],[6,7,8],
-        [0,3,6],[1,4,7],[2,5,8],
-        [0,4,8],[2,4,6]
-      ];
-      return winPatterns.some(p => board[p[0]] !== "" && board[p[0]] === board[p[1]] && board[p[1]] === board[p[2]]);
-    }
-
-    function resetGame() {
-      board = ["", "", "", "", "", "", "", "", ""];
-      currentPlayer = "X";
-      gameOver = false;
-      messageElement.textContent = "";
-      drawBoard();
-    }
-
-    function playAgain() {
-      resetGame();
-    }
-
-    function updateScoreboard() {
-      scoreboardElement.textContent = `${player1} (X): ${scores.X} | ${player2} (O): ${scores.O}`;
-    }
-
-    function getPlayerName(symbol) {
-      return symbol === "X" ? player1 : player2;
-    }
-
-    drawBoard();
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
